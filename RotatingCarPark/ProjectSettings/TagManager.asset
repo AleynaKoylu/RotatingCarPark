@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Park
   - Stop
+  - Car
+  - Wait
   layers:
   - Default
   - TransparentFX
