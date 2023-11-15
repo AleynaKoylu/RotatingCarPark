@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using AleynaRotatingCar;
 public class Car : MonoBehaviour
 {
     public bool go;
-    //public bool waitZone = false;
+
     public Transform parent,parent2;
     public List<GameObject> WhellTracks = new List<GameObject>();
     GameObject gameManagerObject;
     GameManager gameManager;
-    
+
+    Librariy librariy = new Librariy();
     void Start()
     {
         gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
@@ -22,11 +23,14 @@ public class Car : MonoBehaviour
     void Update()
     {
         
-        if (transform.position.z < -7.46f)
-            transform.Translate(new Vector3(0, 0, 3f * Time.deltaTime));
+        if (transform.position.z < -7.46f&&Time.timeScale==1)
+            transform.Translate(new Vector3(0, 0, 5f * Time.deltaTime));
         if(transform.position.z>=-7.46f&& go==true)
             transform.Translate(new Vector3(0, 0, 15 * Time.deltaTime));
+
+        
     }
+   
     public void CarStopKontrol()
     {
         go = false;
@@ -42,18 +46,22 @@ public class Car : MonoBehaviour
 
        if (collision.gameObject.CompareTag("Platform"))
         {
-            gameObject.SetActive(false);
-          
-            gameManager.NewCarActive();
-
+           gameObject.SetActive(false);
+           gameManager.OpenPanels(1, true);
         }
         else if (collision.gameObject.CompareTag("Car"))
         {
-            gameObject.SetActive(false);
+           gameObject.SetActive(false);
+            gameManager.OpenPanels(1, true);
+
+
+        }
+       else if (collision.gameObject.CompareTag("Diamond"))
+        {
+            collision.gameObject.SetActive(false);
+            gameManager.DiamondValue(true);
+            gameManager.MomentDiamond(true);
             
-            gameManager.NewCarActive();
-
-
         }
     }
 }
