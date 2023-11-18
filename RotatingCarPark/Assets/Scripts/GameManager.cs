@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public List<Image> VehicleImage = new List<Image>();
     public Sprite vehicle;
     public Transform parent;
-
+    public bool CarMovement = false;
     [Header("---PLATFORM---")]
     public GameObject platform1;
     public GameObject platform2;
@@ -29,22 +29,24 @@ public class GameManager : MonoBehaviour
     [Header("---CANVAS---")]
     public List<GameObject> Panels = new List<GameObject>();
     public GameObject CarNew;
-    public List<Text> DiamondAndCarTexts = new List<Text>();
-  
+    public List<Text> DiamondCarLevelTexts = new List<Text>();
+    
 
     [Header("---OTHER---")]
     Librariy librariy = new Librariy();
     void Start()
     {
-        Time.timeScale = 0;
+    
+
         pCarNumber2 = 6 + platformCarNumber;
         for (int i = 0; i < CarNumber; i++)
         {
             VehicleImage[i].gameObject.SetActive(true);
-
+            
         }
-        DiamondValue();
-        MomentDiamond();
+        WritingDiamondLevelCar(4, 6, firstDiamond, true);
+        WritingDiamondLevelCar(0, 4, librariy.GetData_Int("Diaomond"), true);
+        WritingDiamondLevelCar(6, 9, librariy.GetData_Int("LastLevel"),false);
     }
 
     public void ChangeImage()
@@ -61,24 +63,15 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        print(firstDiamond);
-        if (Panels[0].activeSelf)
-            print("acik");
-        
         if (platform1.transform.childCount >= pCarNumber2)
         {
-            Debug.Log("Kazandý");
-
             OpenPanels(0, true);
         }
         if (Time.timeScale != 0)
         {
             platform1.transform.Rotate(new Vector3(0, 0, rotateSpeed[0]), Space.Self);
 
-
-           
-                
-                if (activeCarIndex < CarNumber&& Input.GetKeyDown(KeyCode.Mouse0))
+                if (activeCarIndex < CarNumber&& Input.GetKeyDown(KeyCode.H))
                 {
 
                     Carr[activeCarIndex].GetComponent<Car>().go = true;
@@ -94,42 +87,52 @@ public class GameManager : MonoBehaviour
                 item.transform.SetParent(parent);
             }
         }
-
+        print(CarMovement);
 
     }
-
-    public void MomentDiamond(bool added = false)
+    public void WinCase()
     {
-        if (added == true)
+         if (platform1.transform.childCount >= pCarNumber2)
+        {
+          
+            librariy.SetData_Int("LastLevel", librariy.GetData_Int("LastLevel") + 1);
+            OpenPanels(0, true);
+            }
+        
+    }
+
+    void WritingDiamondLevelCar(int firsValue,int secondValue, int value,bool xAdded)
+    {
+
+        for (int i = firsValue; i < secondValue; i++)
+        {
+            if(xAdded==true)
+            DiamondCarLevelTexts[i].text = "x" + value;
+            else
+            DiamondCarLevelTexts[i].text = value.ToString();
+        }
+        
+    }
+    public void DiamondValue(string name)
+    {
+        if (name == "Moment")
         {
             firstDiamond++;
+            WritingDiamondLevelCar(4, 6, firstDiamond, true);
         }
-        for (int i = 4; i < 6; i++)
-        {
-            DiamondAndCarTexts[i].text = "x" + firstDiamond;
-        }
-   
-    }
-    public void DiamondValue(bool added=false)
-    {
-
-        if (added == true)
+        else if (name == "Total")
         {
             librariy.SetData_Int("Diaomond", librariy.GetData_Int("Diaomond") + 1);
-            Debug.Log(librariy.GetData_Int("Diaomond"));
+            WritingDiamondLevelCar(0, 4, librariy.GetData_Int("Diaomond"), true);
         }
-
-        for (int i = 0; i < 4; i++)
-        {
-            DiamondAndCarTexts[i].text = "x" + librariy.GetData_Int("Diaomond");
-        }
-
-     
     }
+
     public void OpenPanels(int index, bool tf)
     {
         Panels[index].SetActive(tf);
-        Time.timeScale = 0;
+        Panels[6].SetActive(false);
+        if (index == 0)
+            Invoke("OpenButton", 2f);
     }
 
     public void MainButtons(string name)
@@ -137,36 +140,42 @@ public class GameManager : MonoBehaviour
         switch (name)
         {
             case "LosePanel":
-                SceneManager.LoadScene(1);
-                print(name);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+               
                 break;
             case "WinPanel":
-                //SceneManager.LoadScene(NextLevel);
-                print(name);
+                SceneManager.LoadScene(librariy.GetData_Int("LastLevel"));
+               
                 break;
             case "FirstPanel":
-                Time.timeScale = 1;
+                CarMovement = true;
                 Panels[2].SetActive(false);
                 Panels[3].SetActive(true);
-                print(name);
+               
                 break;
             case "SettingsPanel":
                 Panels[4].SetActive(true);
-                print(name);
+               
                 break;
             case "CostumuzePanel":
                 Panels[5].SetActive(true);
-                print(name);
+               
                 break;
             case "Reward":
                 //Ödül reklamý girecek
-                print(name);
+                
                 break;
             case "PanelClose":
                 Panels[4].SetActive(false);
-                print(name);
+               
                 break;
         }
        
+    }
+
+
+   void OpenButton()
+    {
+        Panels[7].SetActive(true);
     }
 }

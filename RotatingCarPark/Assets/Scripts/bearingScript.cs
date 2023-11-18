@@ -5,8 +5,12 @@ using UnityEngine;
 public class bearingScript : MonoBehaviour
 {
     Car car;
+    GameObject gameManagerObjct;
+    GameManager gameManager;
     public void Start()
     {
+        gameManagerObjct = GameObject.FindGameObjectWithTag("GameController");
+        gameManager = gameManagerObjct.GetComponent<GameManager>();
         car = GetComponentInParent<Car>();
     }
     private void OnCollisionEnter(Collision collision)
@@ -16,8 +20,7 @@ public class bearingScript : MonoBehaviour
         {
 
             car.CarStopKontrol();
-            print("degdi");
-
+            gameManager.WinCase();
         }
         
     }

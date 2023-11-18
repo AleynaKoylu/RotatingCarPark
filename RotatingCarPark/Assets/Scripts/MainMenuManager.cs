@@ -8,9 +8,12 @@ public class MainMenuManager : MonoBehaviour
 {
     public List<Button> Buttons = new List<Button>();
     Librariy librariy = new Librariy();
+    public List<ItemDatas> ıtemDatas = new List<ItemDatas>();
+    DataManager dataManager = new DataManager();
     void Start()
     {
        librariy.CheckKey();
+        //dataManager.FirstSave(ıtemDatas);
     }
 
     void Update()
