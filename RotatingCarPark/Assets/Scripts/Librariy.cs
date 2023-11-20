@@ -13,8 +13,12 @@ namespace AleynaRotatingCar
         {
             if (!PlayerPrefs.HasKey("LastLevel"))
             {
-                PlayerPrefs.SetInt("LastLevel", 1);
+                PlayerPrefs.SetInt("LastLevel", 3);
                 PlayerPrefs.SetInt("Diaomond", 0);
+                PlayerPrefs.SetInt("ActiveGroup1Image", 0);
+                PlayerPrefs.SetInt("ActiveGroup2Image", 0);
+                PlayerPrefs.SetInt("ActiveGroup3Image", 0);
+                PlayerPrefs.SetInt("ActiveGroup4Image", 0);
 
             }
         }

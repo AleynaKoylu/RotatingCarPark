@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
                 item.transform.SetParent(parent);
             }
         }
-        print(CarMovement);
+        
 
     }
     public void WinCase()
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
                
                 break;
             case "CostumuzePanel":
-                Panels[5].SetActive(true);
+                SceneManager.LoadScene(1);
                
                 break;
             case "Reward":
@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
                 Panels[4].SetActive(false);
                
                 break;
+                
         }
        
     }

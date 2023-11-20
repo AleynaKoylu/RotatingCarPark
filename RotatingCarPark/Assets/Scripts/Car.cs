@@ -5,18 +5,29 @@ using AleynaRotatingCar;
 public class Car : MonoBehaviour
 {
     public bool go;
-
+    Librariy librariy = new Librariy();
     public Transform parent,parent2;
     public List<GameObject> WhellTracks = new();
     GameObject gameManagerObject;
     GameManager gameManager;
 
- 
+    public List<GameObject> Group1 = new List<GameObject>();
+    public List<GameObject> Group2 = new List<GameObject>();
+    public List<GameObject> Group3 = new List<GameObject>();
+    public List<GameObject> Group4 = new List<GameObject>();
+
+
     void Start()
     {
+      
         gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
         gameManager = gameManagerObject.GetComponent<GameManager>();
-       
+    
+
+        CarCostumeControl("Car1", Group1, "ActiveGroup1Image");
+        CarCostumeControl("Car2", Group2, "ActiveGroup2Image");
+        CarCostumeControl("Car3", Group3, "ActiveGroup3Image");
+        CarCostumeControl("Car4", Group4, "ActiveGroup4Image");
 
     }
 
@@ -31,11 +42,22 @@ public class Car : MonoBehaviour
         else if (transform.position.z >= -7.46f && go == true)
             transform.Translate(new Vector3(0, 0, 15 * Time.deltaTime));
 
-        
+        print(librariy.GetData_Int("ActiveGroup1Image"));
 
     }
 
- 
+    void CarCostumeControl(string Tag,List<GameObject> GroupName,string key)
+    {
+        if (gameObject.CompareTag(Tag)) 
+        { 
+        for (int i = 0; i < GroupName.Count; i++)
+        {
+            GroupName[i].SetActive(false);
+        }
+        GroupName[librariy.GetData_Int(key)].SetActive(true);
+        }
+
+    }
     public void CarStopKontrol()
     {
         go = false;
