@@ -42,7 +42,7 @@ public class Car : MonoBehaviour
         else if (transform.position.z >= -7.46f && go == true)
             transform.Translate(new Vector3(0, 0, 15 * Time.deltaTime));
 
-        print(librariy.GetData_Int("ActiveGroup1Image"));
+       
 
     }
 
@@ -50,11 +50,11 @@ public class Car : MonoBehaviour
     {
         if (gameObject.CompareTag(Tag)) 
         { 
-        for (int i = 0; i < GroupName.Count; i++)
-        {
-            GroupName[i].SetActive(false);
-        }
-        GroupName[librariy.GetData_Int(key)].SetActive(true);
+            for (int i = 0; i < GroupName.Count; i++)
+                {
+                    GroupName[i].SetActive(false);
+                }
+            GroupName[librariy.GetData_Int(key)].SetActive(true);
         }
 
     }

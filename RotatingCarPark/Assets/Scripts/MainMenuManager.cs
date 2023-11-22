@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
        librariy.CheckKey();
-        //dataManager.FirstSave(ýtemDatas);
+       dataManager.FirstSave(ýtemDatas);
     }
 
     void Update()
@@ -22,5 +22,16 @@ public class MainMenuManager : MonoBehaviour
     public void TapToContinueButton()
     {
         SceneManager.LoadScene(librariy.GetData_Int("LastLevel"));
+    }
+    public void SceneChange(int index)
+    {
+        if (index == 0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else if (index == 1)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }

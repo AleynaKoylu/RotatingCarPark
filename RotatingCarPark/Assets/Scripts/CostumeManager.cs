@@ -10,7 +10,7 @@ public class CostumeManager : MonoBehaviour
     [Header("---General---")]
     public List<GameObject> Panels = new List<GameObject>();
     int PanelIndex = -1;
-    public Text buyText,diamondaText;
+    public Text buyText, diamondaText;
     public List<Button> GeneralButtons = new List<Button>();
 
     [Header("---Save----")]
@@ -44,22 +44,10 @@ public class CostumeManager : MonoBehaviour
 
     void Start()
     {
-        //MainMenuLevelleredevamýný izle.
-        diamondaText.text = librariy.GetData_Int("Diaomond").ToString() ;
-        librariy.SetData_Int("ActiveGroup1Image", 0);
-        librariy.SetData_Int("ActiveGroup2Image", 0);
-        librariy.SetData_Int("ActiveGroup3Image", 0);
-        librariy.SetData_Int("ActiveGroup4Image", 0);
-
-        //dataManager.FirstSave(ýtemDatas);
+        diamondaText.text = librariy.GetData_Int("Diaomond").ToString();
         dataManager.Load();
         ýtemDatas = dataManager.TakeListCostume();
-        // Save();
-        //Load();
-        // CheckButtons(0);
     }
-
-
     #region Buttons
 
     public void Group1Buttons(bool BackForward)
@@ -74,8 +62,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group1Index].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group1Index].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group1Index].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -91,8 +82,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group1Index].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group1Index].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group1Index].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -130,8 +124,11 @@ public class CostumeManager : MonoBehaviour
                     if (ýtemDatas[Group1Index].BuyResult == false)
                     {
                         buyText.text = ýtemDatas[Group1Index].DiamondPoint.ToString();
-                        GeneralButtons[0].interactable = true;
                         GeneralButtons[1].interactable = false;
+                        if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group1Index].DiamondPoint)
+                            GeneralButtons[0].interactable = false;
+                        else
+                            GeneralButtons[0].interactable = true;
                     }
                     else
                     {
@@ -168,16 +165,19 @@ public class CostumeManager : MonoBehaviour
         #region ForwardButton
         if (BackForward == true)
         {
-            
+
             if (Group2Index == 0)
             {
                 Group2Index = 1;
                 MainImageGroup2.sprite = Group2Image[Group2Index];
-                if (ýtemDatas[Group2Index+8].BuyResult == false)
+                if (ýtemDatas[Group2Index + 8].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group2Index + 8].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group2Index + 8].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -190,13 +190,16 @@ public class CostumeManager : MonoBehaviour
             else
             {
                 Group2Index++;
-               
+
                 MainImageGroup2.sprite = Group2Image[Group2Index];
                 if (ýtemDatas[Group2Index + 8].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group2Index + 8].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group2Index + 8].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -223,10 +226,10 @@ public class CostumeManager : MonoBehaviour
         {
             if (Group2Index != 0)
             {
-               
+
                 Group2Index--;
                 MainImageGroup2.sprite = Group2Image[Group2Index];
-                
+
 
                 if (Group2Index != 0)
                 {
@@ -235,8 +238,11 @@ public class CostumeManager : MonoBehaviour
                     if (ýtemDatas[Group2Index + 8].BuyResult == false)
                     {
                         buyText.text = ýtemDatas[Group2Index + 8].DiamondPoint.ToString();
-                        GeneralButtons[0].interactable = true;
                         GeneralButtons[1].interactable = false;
+                        if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group2Index + 8].DiamondPoint)
+                            GeneralButtons[0].interactable = false;
+                        else
+                            GeneralButtons[0].interactable = true;
                     }
                     else
                     {
@@ -277,7 +283,7 @@ public class CostumeManager : MonoBehaviour
         #region ForwardButton
         if (BackForward == true)
         {
-           
+
             if (Group3Index == 0)
             {
                 Group3Index = 1;
@@ -285,8 +291,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group3Index + 16].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group3Index + 16].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group3Index + 16].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -303,8 +312,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group3Index + 16].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group3Index + 16].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group3Index + 16].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -331,11 +343,11 @@ public class CostumeManager : MonoBehaviour
         {
             if (Group3Index != 0)
             {
-               
+
                 Group3Index--;
-                
-               MainImageGroup3.sprite = Group3Image[Group3Index];
-                
+
+                MainImageGroup3.sprite = Group3Image[Group3Index];
+
 
                 if (Group3Index != 0)
                 {
@@ -344,8 +356,11 @@ public class CostumeManager : MonoBehaviour
                     if (ýtemDatas[Group3Index + 16].BuyResult == false)
                     {
                         buyText.text = ýtemDatas[Group3Index + 16].DiamondPoint.ToString();
-                        GeneralButtons[0].interactable = true;
                         GeneralButtons[1].interactable = false;
+                        if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group3Index + 16].DiamondPoint)
+                            GeneralButtons[0].interactable = false;
+                        else
+                            GeneralButtons[0].interactable = true;
                     }
                     else
                     {
@@ -385,7 +400,7 @@ public class CostumeManager : MonoBehaviour
         #region ForwardButton
         if (BackForward == true)
         {
-           
+
             if (Group4Index == 0)
             {
                 Group4Index = 1;
@@ -393,8 +408,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group4Index + 24].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group4Index + 24].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group4Index + 24].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -411,8 +429,11 @@ public class CostumeManager : MonoBehaviour
                 if (ýtemDatas[Group4Index + 24].BuyResult == false)
                 {
                     buyText.text = ýtemDatas[Group4Index + 24].DiamondPoint.ToString();
-                    GeneralButtons[0].interactable = true;
                     GeneralButtons[1].interactable = false;
+                    if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group4Index + 24].DiamondPoint)
+                        GeneralButtons[0].interactable = false;
+                    else
+                        GeneralButtons[0].interactable = true;
                 }
                 else
                 {
@@ -440,9 +461,9 @@ public class CostumeManager : MonoBehaviour
             if (Group4Index != 0)
             {
                 Group4Index--;
-               
+
                 MainImageGroup4.sprite = Group4Image[Group4Index];
-                
+
 
                 if (Group4Index != 0)
                 {
@@ -451,8 +472,11 @@ public class CostumeManager : MonoBehaviour
                     if (ýtemDatas[Group4Index + 24].BuyResult == false)
                     {
                         buyText.text = ýtemDatas[Group4Index + 24].DiamondPoint.ToString();
-                        GeneralButtons[0].interactable = true;
                         GeneralButtons[1].interactable = false;
+                        if (librariy.GetData_Int("Diaomond") < ýtemDatas[Group4Index + 24].DiamondPoint)
+                            GeneralButtons[0].interactable = false;
+                        else
+                            GeneralButtons[0].interactable = true;
                     }
                     else
                     {
@@ -503,7 +527,9 @@ public class CostumeManager : MonoBehaviour
         switch (PanelIndex)
         {
             case -1:
-                SceneManager.LoadScene(librariy.GetData_Int("LastLevel"));
+                // dataManager.Save(ýtemDatas);
+                SceneManager.LoadScene(0);
+
                 break;
             case 0:
                 Panels[PanelIndex].SetActive(false);
@@ -552,11 +578,17 @@ public class CostumeManager : MonoBehaviour
             {
                 MainImageGroup1.sprite = Group1Image[Group1Index];
                 Group1BackForwardButtons[1].interactable = false;
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
             }
             else
             {
                 Group1Index = librariy.GetData_Int("ActiveGroup1Image");
                 MainImageGroup1.sprite = Group1Image[librariy.GetData_Int("ActiveGroup1Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
 
             }
         }
@@ -580,11 +612,17 @@ public class CostumeManager : MonoBehaviour
             {
                 Group2BackForwardButtons[1].interactable = false;
                 MainImageGroup2.sprite = Group2Image[librariy.GetData_Int("ActiveGroup2Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
             }
             else
             {
                 Group2Index = librariy.GetData_Int("ActiveGroup2Image");
                 MainImageGroup2.sprite = Group2Image[librariy.GetData_Int("ActiveGroup2Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
 
             }
         }
@@ -608,11 +646,17 @@ public class CostumeManager : MonoBehaviour
             {
                 Group3BackForwardButtons[1].interactable = false;
                 MainImageGroup3.sprite = Group3Image[librariy.GetData_Int("ActiveGroup3Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
             }
             else
             {
                 Group3Index = librariy.GetData_Int("ActiveGroup3Image");
                 MainImageGroup3.sprite = Group3Image[librariy.GetData_Int("ActiveGroup3Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
 
             }
         }
@@ -636,11 +680,17 @@ public class CostumeManager : MonoBehaviour
             {
                 Group4BackForwardButtons[1].interactable = false;
                 MainImageGroup4.sprite = Group4Image[librariy.GetData_Int("ActiveGroup4Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
             }
             else
             {
                 Group4Index = librariy.GetData_Int("ActiveGroup4Image");
                 MainImageGroup4.sprite = Group4Image[librariy.GetData_Int("ActiveGroup4Image")];
+                buyText.text = "0";
+                GeneralButtons[0].interactable = false;
+                GeneralButtons[1].interactable = true;
 
             }
         }
@@ -653,24 +703,63 @@ public class CostumeManager : MonoBehaviour
             switch (PanelIndex)
             {
                 case 0:
-                    print("Bolum No: " + PanelIndex + " ItemIndex: " + Group1Index);
+
+                    BuyProcess(Group1Index);
+
                     break;
                 case 1:
-                    print("Bolum No: " + PanelIndex + " ItemIndex: " + Group2Index);
+
+                    int index = Group2Index + 8;
+                    BuyProcess(index);
+
+
                     break;
                 case 2:
-                    print("Bolum No: " + PanelIndex + " ItemIndex: " + Group3Index);
+                    int index2 = Group3Index + 16;
+                    BuyProcess(index2);
                     break;
                 case 3:
-                    print("Bolum No: " + PanelIndex + " ItemIndex: " + Group4Index);
+                    int index3 = Group4Index + 24;
+                    BuyProcess(index3);
                     break;
             }
         }
-        print(PanelIndex);
     }
     public void Use()
     {
+        if (PanelIndex != -1)
+        {
+            switch (PanelIndex)
+            {
+                case 0:
+                    UseProcess("ActiveGroup1Image", Group1Index);
+                    break;
+                case 1:
+                    UseProcess("ActiveGroup2Image", Group2Index);
+                    break;
+                case 2:
+                    UseProcess("ActiveGroup3Image", Group3Index);
+                    break;
+                case 3:
+                    UseProcess("ActiveGroup4Image", Group4Index);
+                    break;
+            }
+        }
+    }
+    void BuyProcess(int index)
+    {
+        ýtemDatas[index].BuyResult = true;
+        librariy.SetData_Int("Diaomond", librariy.GetData_Int("Diaomond") - ýtemDatas[index].DiamondPoint);
+        diamondaText.text = librariy.GetData_Int("Diaomond").ToString();
+        GeneralButtons[0].interactable = false;
+        GeneralButtons[1].interactable = true;
+        buyText.text = "0";
 
+    }
+    void UseProcess(string key, int index)
+    {
+        librariy.SetData_Int(key, index);
+        GeneralButtons[1].interactable = false;
     }
     #endregion
 }

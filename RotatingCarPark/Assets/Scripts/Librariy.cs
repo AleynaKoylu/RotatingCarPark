@@ -54,11 +54,6 @@ namespace AleynaRotatingCar
         }
         #endregion
     }
-    public class Datas
-    {
-        public List<ItemDatas> ýtemDatas = new List<ItemDatas>();
-       
-    }
     public class DataManager
     {
         public void FirstSave(List<ItemDatas> ýtemDatas)
