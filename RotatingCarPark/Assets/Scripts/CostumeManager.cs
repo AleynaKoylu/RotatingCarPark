@@ -6,6 +6,7 @@ using AleynaRotatingCar;
 using UnityEngine.SceneManagement;
 public class CostumeManager : MonoBehaviour
 {
+    public List<AudioSource> audioSources = new();
 
     [Header("---General---")]
     public List<GameObject> Panels = new List<GameObject>();
@@ -42,11 +43,75 @@ public class CostumeManager : MonoBehaviour
     public Image MainImageGroup4;
     public List<Button> Group4BackForwardButtons = new List<Button>();
 
+   [Header("---Language---")]
+    public List<LanguageDatasMainObject> languageDatasMainObjects = new List<LanguageDatasMainObject>();
+    List<LanguageDatasMainObject> ReadingLanguageDatas = new List<LanguageDatasMainObject>();
+    public List<Text> languageTexts = new List<Text>();
     void Start()
     {
         diamondaText.text = librariy.GetData_Int("Diaomond").ToString();
         dataManager.Load();
         ýtemDatas = dataManager.TakeListCostume();
+
+        dataManager.LoadLang();
+        ReadingLanguageDatas = dataManager.TakeLangCostume();
+        languageDatasMainObjects.Add(ReadingLanguageDatas[1]);
+        ChangeLanguage();
+
+
+    }
+    void ChangeLanguage()
+    {
+        switch (librariy.GetData_String("Language"))
+        {
+            case "EN":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_EN[i].String;
+                }
+                
+                break;
+            case "TR":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_TR[i].String;
+                }
+                break;
+            case "AZ":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_AZ[i].String;
+                }
+                break;
+            case "JP":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_JP[i].String;
+                }
+                break;
+            case "KR":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_KR[i].String;
+                }
+                break;
+            case "AL":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_AL[i].String;
+                }
+                break;
+            case "HN":
+                for (int i = 0; i < languageTexts.Count; i++)
+                {
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_HN[i].String;
+                }
+                break;
+        }
+    }
+    public void Sound(int index)
+    {
+        audioSources[index].Play();
     }
     #region Buttons
 
@@ -762,5 +827,7 @@ public class CostumeManager : MonoBehaviour
         GeneralButtons[1].interactable = false;
     }
     #endregion
+
+
 }
 

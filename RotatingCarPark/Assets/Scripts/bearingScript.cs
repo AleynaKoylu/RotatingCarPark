@@ -13,16 +13,13 @@ public class bearingScript : MonoBehaviour
         gameManager = gameManagerObjct.GetComponent<GameManager>();
         car = GetComponentInParent<Car>();
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-         if (collision.gameObject.CompareTag("Stop"))
+    private void OnTriggerEnter(Collider other)
+    { 
+        if (other.gameObject.CompareTag("Stop"))
         {
-
             car.CarStopKontrol();
-            gameManager.WinCase();
+
         }
-        
     }
 
-    }
+}

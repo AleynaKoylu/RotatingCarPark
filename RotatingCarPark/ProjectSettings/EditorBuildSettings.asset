@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CostumuzeScene.unity
     guid: 561e01175ae96374b8898bdd14aed739
   - enabled: 1
-    path: Assets/Scenes/Levels.unity
-    guid: f2dc83dc68aad2c459c937f0c497e926
-  - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Level1 1.unity
+    guid: 1a8f52ecc1be9b94780287f1cf308621
   m_configObjects: {}

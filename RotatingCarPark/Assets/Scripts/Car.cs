@@ -10,6 +10,7 @@ public class Car : MonoBehaviour
     public List<GameObject> WhellTracks = new();
     GameObject gameManagerObject;
     GameManager gameManager;
+    public ParticleSystem particleSystem;
 
     public List<GameObject> Group1 = new List<GameObject>();
     public List<GameObject> Group2 = new List<GameObject>();
@@ -69,27 +70,31 @@ public class Car : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-      
-
-       if (collision.gameObject.CompareTag("Platform"))
+       if (collision.gameObject.CompareTag("Car1")|| collision.gameObject.CompareTag("Car2")|| collision.gameObject.CompareTag("Car3")|| collision.gameObject.CompareTag("Car4"))
         {
-           gameObject.SetActive(false);
-           gameManager.OpenPanels(1, true);
-          
-        }
-        else if (collision.gameObject.CompareTag("Car"))
-        {
-           gameObject.SetActive(false);
+            gameObject.SetActive(false);
             gameManager.OpenPanels(1, true);
-
+            particleSystem.Play();
+            go = false;
 
         }
-       else if (collision.gameObject.CompareTag("Diamond"))
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.CompareTag("Platform"))
         {
-            collision.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            gameManager.OpenPanels(1, true);
+            particleSystem.Play();
+            go = false;
+        }
+        else if (other.gameObject.CompareTag("Diamond"))
+        {
+            other.gameObject.SetActive(false);
             gameManager.DiamondValue("Moment");
             gameManager.DiamondValue("Total");
-            
+
         }
     }
 }
