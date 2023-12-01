@@ -21,6 +21,8 @@ namespace AleynaRotatingCar
                 PlayerPrefs.SetInt("ActiveGroup4Image", 0);
                 PlayerPrefs.SetString("Language", "EN");
                 PlayerPrefs.SetInt("ImageIndex", 0);
+                PlayerPrefs.SetFloat("GameSound",.5f);
+                PlayerPrefs.SetFloat("FX", .5f);
 
             }
         }

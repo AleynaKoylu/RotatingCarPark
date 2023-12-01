@@ -57,6 +57,10 @@ public class CostumeManager : MonoBehaviour
         ReadingLanguageDatas = dataManager.TakeLangCostume();
         languageDatasMainObjects.Add(ReadingLanguageDatas[1]);
         ChangeLanguage();
+        foreach (var item in audioSources)
+        {
+            item.volume = librariy.GetData_Float("FX");
+        }
 
 
     }
@@ -592,7 +596,7 @@ public class CostumeManager : MonoBehaviour
         switch (PanelIndex)
         {
             case -1:
-                // dataManager.Save(ýtemDatas);
+                 dataManager.Save(ýtemDatas);
                 SceneManager.LoadScene(0);
 
                 break;

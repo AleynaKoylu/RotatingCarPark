@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     public int CarNumber;
     public int activeCarIndex = 0;
     public Vector3 carTransform;
-    //public List<Image> VehicleImage = new List<Image>();
     public Text vehicleText;
     public Sprite vehicle;
     public Transform parent;
@@ -27,6 +26,7 @@ public class GameManager : MonoBehaviour
     [Header("---LEVEL---")]
     public int diamond;
     public int firstDiamond = 0;
+    public List<AudioSource> audioSources = new List<AudioSource>();
 
     [Header("---CANVAS---")]
     public List<GameObject> Panels = new List<GameObject>();
@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviour
 
     [Header("---OTHER---")]
     Librariy librariy = new Librariy();
-
+    public bool noMovement = false;
+    public int down = 0;
     [Header("---Language---")]
     DataManager dataManager = new DataManager();
     public List<LanguageDatasMainObject> languageDatasMainObjects = new List<LanguageDatasMainObject>();
@@ -48,28 +49,44 @@ public class GameManager : MonoBehaviour
         vehicleText.text = CarNumber.ToString();
         WritingDiamondLevelCar(3, 5, firstDiamond, true);
         WritingDiamondLevelCar(0, 3, librariy.GetData_Int("Diaomond"), true);
-        WritingDiamondLevelCar(5, 7, librariy.GetData_Int("LastLevel") - 1, false);
+        WritingDiamondLevelCar(5, 8, librariy.GetData_Int("LastLevel") - 1, false);
 
         dataManager.LoadLang();
         ReadingLanguageDatas = dataManager.TakeLangCostume();
         languageDatasMainObjects.Add(ReadingLanguageDatas[2]);
         ChangeLanguage();
+
+        foreach (var item in audioSources)
+        {
+            item.volume = librariy.GetData_Float("FX");
+        }
+       
+        print(SceneManager.GetActiveScene().buildIndex);
     }
-   
+
     void Update()
     {
-        if (Time.timeScale != 0)
-        {
-            platform1.transform.Rotate(new Vector3(0, 0, rotateSpeed[0]), Space.Self);
 
-            if (activeCarIndex < CarNumber && Input.GetKeyDown(KeyCode.H))
+        platform1.transform.Rotate(new Vector3(0, 0, rotateSpeed[0]), Space.Self);
+        if (platform2 != null)
+            platform2.transform.Rotate(new Vector3(0, 0, rotateSpeed[1]), Space.Self);
+        if (Input.GetMouseButtonDown(0) && noMovement == true)
+        {
+            down++;
+            if (activeCarIndex < CarNumber && down >= 1)
             {
 
                 Carr[activeCarIndex].GetComponent<Car>().go = true;
-
                 activeCarIndex++;
             }
-
+        }
+        if (Panels[0].activeSelf || Panels[1].activeSelf || Panels[2].activeSelf)
+        {
+            noMovement = false;
+        }
+        else if (Panels[0].activeSelf == false && Panels[1].activeSelf == false && Panels[2].activeSelf == false)
+        {
+            noMovement = true;
         }
         foreach (var item in Carr)
         {
@@ -78,6 +95,7 @@ public class GameManager : MonoBehaviour
                 item.transform.SetParent(parent);
             }
         }
+
 
 
     }
@@ -132,7 +150,7 @@ public class GameManager : MonoBehaviour
     }
     public void ChangeImage()
     {
-        vehicleText.text = (CarNumber-activeCarIndex).ToString();
+        vehicleText.text = (CarNumber - activeCarIndex).ToString();
     }
     public void NewCarActive()
     {
@@ -148,8 +166,13 @@ public class GameManager : MonoBehaviour
     }
     public void WinCase()
     {
+        
+        if (SceneManager.GetActiveScene().buildIndex >= 21)
+            librariy.SetData_Int("LastLevel", SceneManager.GetActiveScene().buildIndex);
+        else
             librariy.SetData_Int("LastLevel", librariy.GetData_Int("LastLevel") + 1);
-            OpenPanels(0, true);
+        OpenPanels(0, true);
+        Sounds(2);
     }
     void WritingDiamondLevelCar(int firsValue, int secondValue, int value, bool xAdded)
     {
@@ -159,7 +182,7 @@ public class GameManager : MonoBehaviour
             if (xAdded == true)
                 DiamondCarLevelTexts[i].text = "x" + value;
             else
-                DiamondCarLevelTexts[i].text = value.ToString();
+                DiamondCarLevelTexts[i].text = " " + value.ToString();
         }
 
     }
@@ -168,12 +191,12 @@ public class GameManager : MonoBehaviour
         if (name == "Moment")
         {
             firstDiamond++;
-            WritingDiamondLevelCar(4, 6, firstDiamond, true);
+            WritingDiamondLevelCar(3, 5, firstDiamond, true);
         }
         else if (name == "Total")
         {
             librariy.SetData_Int("Diaomond", librariy.GetData_Int("Diaomond") + 1);
-            WritingDiamondLevelCar(0, 4, librariy.GetData_Int("Diaomond"), true);
+            WritingDiamondLevelCar(0, 3, librariy.GetData_Int("Diaomond"), true);
         }
     }
     public void OpenPanels(int index, bool tf)
@@ -201,7 +224,7 @@ public class GameManager : MonoBehaviour
                 Panels[3].SetActive(true);
 
                 break;
-            
+
             case "MainMenu":
                 SceneManager.LoadScene(0);
 
@@ -210,7 +233,7 @@ public class GameManager : MonoBehaviour
                 //Ödül reklamý girecek
 
                 break;
-       
+
 
         }
 
@@ -219,4 +242,17 @@ public class GameManager : MonoBehaviour
     {
         Panels[4].SetActive(true);
     }
+    #region Sounds
+    public void ButtonsSound()
+    {
+        audioSources[0].Play();
+    }
+    public void Sounds(int index)
+    {
+        audioSources[index].Play();
+    }
+
+
+    #endregion
 }
+

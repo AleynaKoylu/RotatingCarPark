@@ -5,21 +5,45 @@ using UnityEngine;
 public class bearingScript : MonoBehaviour
 {
     Car car;
-    GameObject gameManagerObjct;
-    GameManager gameManager;
+    public GameObject Platforms;
+    public float yValue;
+    float yResult;
+
+    Platform4 platform4;
     public void Start()
     {
-        gameManagerObjct = GameObject.FindGameObjectWithTag("GameController");
-        gameManager = gameManagerObjct.GetComponent<GameManager>();
         car = GetComponentInParent<Car>();
     }
-    private void OnTriggerEnter(Collider other)
-    { 
-        if (other.gameObject.CompareTag("Stop"))
+    private void Update()
+    {
+        
+        if (platform4!=null&& platform4.upp == true)
         {
-            car.CarStopKontrol();
-
+            if (yResult > Platforms.transform.position.y)
+                Platforms.transform.position = Vector3.Lerp(Platforms.transform.position, new Vector3(Platforms.transform.position.x, yResult, Platforms.transform.position.z), 0.010f);
+            else
+                platform4.upp = false;
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Stop"))
+        {
+            car.CarStopKontrol();
+            if (Platforms != null)
+            {
+                yResult = Platforms.transform.position.y + yValue;
+                platform4 = other.gameObject.GetComponentInParent<Platform4>();
+                platform4.carYes = true;
+
+
+            }
+               
+          
+        }
+
+    }
 }
+
+

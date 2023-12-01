@@ -15,6 +15,7 @@ TagManager:
   - Car3
   - Car4
   - FirstStop
+  - Sound
   layers:
   - Default
   - TransparentFX

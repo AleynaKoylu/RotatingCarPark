@@ -10,11 +10,12 @@ public class MainMenuManager : MonoBehaviour
     Librariy librariy = new Librariy();
     public List<ItemDatas> defaultItemDatas = new List<ItemDatas>();
     DataManager dataManager = new DataManager();
-
+    [Header("Sound")]
     public AudioSource audioSources;
-     
+    public List<Slider> sliders = new List<Slider>();
+
     [Header("Language")]
-    
+
     public Image flagImage;
     public List<Sprite> sprites = new List<Sprite>();
     public List<Text> languageTexts = new List<Text>();
@@ -22,30 +23,28 @@ public class MainMenuManager : MonoBehaviour
     public List<LanguageDatasMainObject> languageDatasMainObjects = new List<LanguageDatasMainObject>();
     List<LanguageDatasMainObject> ReadingLanguageDatas = new List<LanguageDatasMainObject>();
 
-  
+
     void Start()
     {
-       librariy.CheckKey();
-       dataManager.FirstSave(defaultItemDatas,defaultLanguageDatasMainObjects);
-      
+        librariy.CheckKey();
+        dataManager.FirstSave(defaultItemDatas, defaultLanguageDatasMainObjects);
+
         dataManager.LoadLang();
         ReadingLanguageDatas = dataManager.TakeLangCostume();
         languageDatasMainObjects.Add(ReadingLanguageDatas[0]);
         ChangeLanguage();
-
-        print(librariy.GetData_String("Language"));
-        
         LanguageButtonControl();
-        
+        soundFirst();
+
     }
     void ChangeLanguage()
     {
         switch (librariy.GetData_String("Language"))
         {
             case "EN":
-                for(int i=0;i<languageTexts.Count;i++)
+                for (int i = 0; i < languageTexts.Count; i++)
                 {
-                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_EN[i].String;  
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_EN[i].String;
                 }
                 flagImage.sprite = sprites[0];
                 break;
@@ -66,7 +65,7 @@ public class MainMenuManager : MonoBehaviour
             case "JP":
                 for (int i = 0; i < languageTexts.Count; i++)
                 {
-                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_JP[i].String; 
+                    languageTexts[i].text = languageDatasMainObjects[0].languesDatas_JP[i].String;
                 }
                 flagImage.sprite = sprites[3];
                 break;
@@ -91,11 +90,14 @@ public class MainMenuManager : MonoBehaviour
                 }
                 flagImage.sprite = sprites[6];
                 break;
-            
+
 
         }
     }
-
+    private void Update()
+    {
+        audioSources.volume = librariy.GetData_Float("FX");
+    }
     public void TapToContinueButton()
     {
         SceneManager.LoadScene(librariy.GetData_Int("LastLevel"));
@@ -207,9 +209,28 @@ public class MainMenuManager : MonoBehaviour
             ChangeLanguage();
         }
     }
-
-    public void Sounds(int index)
+    #region Sound
+    public void Sounds()
     {
         audioSources.Play();
     }
+    void soundFirst()
+    {
+        sliders[0].value = librariy.GetData_Float("GameSound");
+        sliders[1].value = librariy.GetData_Float("FX");
+    }
+    public void SoundsSetting(int index)
+    {
+        switch (index)
+        {
+            case 0:
+
+                librariy.SetData_Float("GameSound", sliders[0].value);
+                break;
+            case 1:
+                librariy.SetData_Float("FX", sliders[1].value);
+                break;
+        }
+    }
+    #endregion
 }

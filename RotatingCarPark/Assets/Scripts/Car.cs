@@ -10,7 +10,10 @@ public class Car : MonoBehaviour
     public List<GameObject> WhellTracks = new();
     GameObject gameManagerObject;
     GameManager gameManager;
+
+#pragma warning disable CS0108 
     public ParticleSystem particleSystem;
+#pragma warning restore CS0108 
 
     public List<GameObject> Group1 = new List<GameObject>();
     public List<GameObject> Group2 = new List<GameObject>();
@@ -36,13 +39,16 @@ public class Car : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.z < -7.46f && gameManager.CarMovement == true)
-            transform.Translate(new Vector3(0, 0, 5f * Time.deltaTime));
+          if (transform.position.z < -7.46f && gameManager.CarMovement == true)
+                transform.Translate(new Vector3(0, 0, 5f * Time.deltaTime));
 
-
-        else if (transform.position.z >= -7.46f && go == true)
-            transform.Translate(new Vector3(0, 0, 15 * Time.deltaTime));
-
+            if (gameManager.down >= 1)
+            {
+                 if (transform.position.z >= -7.46f && go == true)
+                    transform.Translate(new Vector3(0, 0, 15 * Time.deltaTime));
+            }
+          
+        
        
 
     }
@@ -76,8 +82,9 @@ public class Car : MonoBehaviour
             gameManager.OpenPanels(1, true);
             particleSystem.Play();
             go = false;
-
+            gameManager.Sounds(1);
         }
+       
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -88,13 +95,16 @@ public class Car : MonoBehaviour
             gameManager.OpenPanels(1, true);
             particleSystem.Play();
             go = false;
+            gameManager.Sounds(1);
         }
         else if (other.gameObject.CompareTag("Diamond"))
         {
             other.gameObject.SetActive(false);
             gameManager.DiamondValue("Moment");
             gameManager.DiamondValue("Total");
+            gameManager.Sounds(4);
 
         }
     }
+    
 }
