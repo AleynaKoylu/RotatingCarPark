@@ -9,7 +9,7 @@ OcclusionCullingSettings:
     smallestHole: 0.25
     backfaceThreshold: 100
   m_SceneGUID: f3ef8a309fea24c499e4097e50fdebe2
-  m_OcclusionCullingData: {fileID: 36300000, guid: 5e24b659781cb6a4e884c2d5355904e3, type: 2}
+  m_OcclusionCullingData: {fileID: 36300000, guid: b2240e305ee5ca34cb64144426ff41ff, type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 46b4d1a6f9d750d4aa95af16d17f0eee, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 97c447515d45424439d1a3fb7fb7f710, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -14156,7 +14156,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 0}
-  m_Intensity: 1
+  m_Intensity: 1.1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -31666,6 +31666,7 @@ MonoBehaviour:
   vehicle: {fileID: 21300000, guid: 53b8fdac4b02d3244b3fca0c37f7bc98, type: 3}
   parent: {fileID: 1742053297}
   CarMovement: 0
+  adsBtn: {fileID: 678369083}
   platform1: {fileID: 7011169156646766377}
   platform2: {fileID: 0}
   rotateSpeed:

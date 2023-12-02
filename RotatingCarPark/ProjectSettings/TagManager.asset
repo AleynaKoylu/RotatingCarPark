@@ -16,6 +16,7 @@ TagManager:
   - Car4
   - FirstStop
   - Sound
+  - ADS
   layers:
   - Default
   - TransparentFX
